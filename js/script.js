@@ -70,7 +70,7 @@
     /*  printQuote() ========================================================== */
     //  NOTE: I would prefer to just pass a int and return a int verse passing a full data strucure... It seems a int would be smaller to pass around.
 
-    var printQuote = function (quoteGenerator) {
+    var printQuote = function () {
 
       var string_rendered_quote, int_new_index, object_new_quote;
 
@@ -90,7 +90,8 @@
       }
       
       string_rendered_quote = '<p class="quote">'+ object_new_quote.quote +'</p> <p class="source">'+ object_new_quote.source;
-    
+
+      // Looking to see if property exists before adding to the string
       if(object_new_quote.hasOwnProperty("citation")){
         if(typeof object_new_quote.citation == 'string') {
           if(object_new_quote.citation.length > 0) {
@@ -98,7 +99,8 @@
           }
         }
       }
-    
+
+      // Looking to see if property exists before adding to the string
       if(object_new_quote.hasOwnProperty("year")){
         if(typeof object_new_quote.year == 'string') {
           if(object_new_quote.year.length > 0) {
@@ -109,6 +111,8 @@
 
       string_rendered_quote += '</p>';
       quoteGenerator.current = int_new_index;
+      
+      document.getElementById('quote-box').innerHTML = string_rendered_quote;
 
     };
 
