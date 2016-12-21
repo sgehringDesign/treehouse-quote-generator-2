@@ -3,8 +3,8 @@
 
   
 
-    /*  quoteGenerator = GLOBAL OBJECT ===========================================================
-        - (int)   current_index = current quote index
+    /*  (object) quoteGenerator = GLOBAL OBJECT ===========================================================
+        - (int)   current = current quote index
         - (array) quotes = A collection of "Quote" objects
     */
 
@@ -50,8 +50,24 @@
       ]
     };
 
-    /*  getRandomQuote() ========================================================== */
-    //  NOTE: I would prefer to just pass a int and return a int verse passing a full data strucure... It seems a int would be smaller to pass around.
+    /*  (function) getRandomQuote() ========================================================== */
+    
+    //  DESCRIPTION: 
+    //  - Generates and returns a random number between the range of the total quotes 
+    
+    //  DEPENDENCIES: 
+    //  - none
+
+    //  PROPERITES: 
+    //  - int_current: Current quote index 
+    //  - length: Current total quote length
+
+    //  RETURNS:
+    //  - int_new_index: The new randomly generated index / integer
+
+    //  NOTES: 
+    //  - I would prefer to just pass a int and return a int verse passing a full data strucure... It seems a int would be smaller to pass around.
+    //  - I have do while loop to prevent quotes from showing up 2 times in row
 
     var getRandomQuote = function (int_current, length) {
 
@@ -59,7 +75,7 @@
 
       // Do while loop ensures there are no repeating quotes
       do {
-        int_new_index = Math.floor( ( Math.random() * length ) + 0 );    
+        int_new_index = Math.floor( ( Math.random() * length ) + 0 );
       } while(int_current === int_new_index);
 
       return int_new_index;
@@ -67,8 +83,21 @@
 
 
   
-    /*  printQuote() ========================================================== */
-    //  NOTE: I would prefer to just pass a int and return a int verse passing a full data strucure... It seems a int would be smaller to pass around.
+    /*  (function) printQuote() ========================================================== */
+
+    //  DESCRIPTION: 
+    //  - Gets a random number from getRandomQuote(). Valudates the data from the return random number. Then renders the new quote inside 'quote-box' div element.
+
+    //  DEPENDENCIES: 
+    //  - (object) quoteGenerator 
+    //  - (function) getRandomQuote()
+
+    //  RETURNS:
+    //  - int_new_index: The new randomly generated index / integer
+
+    //  NOTES: 
+    //  - I would prefer to just pass a int and return a int verse passing a full data strucure... It seems a int would be smaller to pass around.
+    //  - I have do while loop to prevent quotes from showing up 2 times in row
 
     var printQuote = function () {
 
@@ -79,12 +108,13 @@
       object_new_quote = quoteGenerator.quotes[int_new_index];
 
       // Looking to see if properies exists before creating the string
-      if (!(object_new_quote.hasOwnProperty('quote')) && !(object_new_quote.hasOwnProperty('source'))) {
-
+      if (!(object_new_quote.hasOwnProperty('quote')) || !(object_new_quote.hasOwnProperty('source'))) {
         console.log("- MISSING QUOTE OR SOURCE PROPERTY FROM OBJECT ----------");
         console.log("quote in object_new_quote: " + object_new_quote.hasOwnProperty('quote'));
         console.log("source in object_new_quote: " + object_new_quote.hasOwnProperty('source'));
         console.log("---------------------------------------------------------");
+
+        document.getElementById('quote-box').innerHTML = '<div class="error" ><strong>For some weird reason there has been an error.</strong><br /> Please click the button one more time to try agian! =O)</p>';
 
         return;
       }
